@@ -3,6 +3,8 @@
 { pkgs, ... }: {
   # Which nixpkgs channel to use.
   channel = "stable-23.11"; # or "unstable"
+  services.postgres.enable = true;
+  services.postgres.package = pkgs.postgresql_16;
   # Use https://search.nixos.org/packages to find packages
   packages = [ pkgs.python3 ];
   idx = {
