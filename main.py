@@ -5,9 +5,10 @@ import requests
 import json
 import re
 import html
-from flask import Flask, send_file, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import db
-from db import logger
+import log
+from log import logger
 import google.generativeai as genai
 from urllib.parse import urlparse
 import cloudscraper
@@ -57,10 +58,10 @@ def index():
             cafe_url = request.form["cafe-url"]
             gemini_api_key = request.form["gemini-api-key"]
 
-            # response = requests.get(cafe_url) # sometimes gets blocked by cloudflare
+            # response = requests.get(cafe_url) # some sites gets blocked by cloudflare
             scraper = cloudscraper.create_scraper()  # see https://github.com/VeNoMouS/cloudscraper
             response = scraper.get(cafe_url)
-            response.encoding = "utf-8"  # TODO review encoding
+            response.encoding = "utf-8"  # force encoding
             html_source = response.text
             cafe = extract_cafe_via_gemini(gemini_api_key, html_source)
             domain = urlparse(cafe_url).netloc
@@ -85,6 +86,7 @@ def index():
 
 
 def main():
+    log.init_logging()
     db.init()
     app.run(port=int(os.environ.get('PORT', 8081)), debug=True)
 
