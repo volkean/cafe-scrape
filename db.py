@@ -10,7 +10,7 @@ db_params = {
     'password': 'user',
     'host': 'localhost',
     'port': '5432',
-    'database': 'tutorial',
+    'database': 'user',
     'minconn':1,
     'maxconn':10
 }

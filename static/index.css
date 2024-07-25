@@ -1,0 +1,16 @@
+body {
+    background-color: #3c3c3c;
+    color: white;
+}
+.error {
+    color: red;
+}
+.info {
+    color: yellow;
+}
+table tr:nth-child(odd) td{
+    background-color: #2f2f2f;
+}
+table tr:nth-child(even) td{
+    background-color: #202020;
+}

@@ -3,26 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      body {
-        background-color: #3c3c3c;
-        color: white;
-      }
-      .error {
-        color: red;
-      }
-      .info {
-        color: yellow;
-      }
-    </style>
+    <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}?v={{ timestamp }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v={{ timestamp }}">
     <title>Cafe Scrape</title>
   </head>
-
   <body>
-    <div class="error">{{error_message}}</div>
-    <div class="info">{{info_message}}</div>
+    <div id="error_message" class="error">{{error_message}}</div>
+    <div id="info_message" class="info">{{info_message}}</div>
     <h1>Scrape Cafe</h1>
-    <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+    <form id="form1" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
       <input type="text" name="gemini-api-key" placeholder="Gemini API Key" value="{{gemini_api_key}}">
       <input type="text" name="cafe-url" placeholder="Cafe URL" value="{{cafe_url}}">
       <input type="submit" value="Submit">

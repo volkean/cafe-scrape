@@ -1,4 +1,6 @@
 import os
+import random
+
 import requests
 import json
 import re
@@ -74,6 +76,7 @@ def index():
         error_message = f'Error: {ex}'
 
     return render_template('index.html',
+                           timestamp=random.randint(1, 1000),
                            error_message=error_message,
                            info_message=info_message,
                            cafe_url=cafe_url,
