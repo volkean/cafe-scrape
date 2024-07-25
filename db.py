@@ -1,4 +1,5 @@
 from log import logger
+import psycopg2
 from psycopg2.pool import ThreadedConnectionPool
 from psycopg2.extras import RealDictCursor
 
@@ -8,9 +9,7 @@ db_params = {
     'password': 'user',
     'host': 'localhost',
     'port': '5432',
-    'database': 'user',
-    'minconn':1,
-    'maxconn':10
+    'dbname': 'user'
 }
 
 connection_pool = None
@@ -18,7 +17,7 @@ connection_pool = None
 
 def init_connection_pool():
     global connection_pool
-    connection_pool = ThreadedConnectionPool(**db_params)
+    connection_pool = ThreadedConnectionPool(minconn=1, maxconn=10, **db_params)
 
 
 def init():
@@ -27,6 +26,9 @@ def init():
 
 def get_db_connection():
     global connection_pool
+    global db_params
+    if connection_pool is None:
+        init_connection_pool()
     conn = connection_pool.getconn()
     conn.autocommit = True
     return conn
