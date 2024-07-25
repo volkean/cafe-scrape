@@ -4,3 +4,7 @@ autopep8
 
 # App
 flask
+psycopg2-binary
+requests
+google-generativeai
+cloudscraper
